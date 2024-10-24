@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INSCRIÇÕES ACAMP 360º 2025</title>
+    <link rel="shortcut icon" href="3.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        body {
+            /*background-image: url('/EBF.jpg');*/
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+            padding-top: 100px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(45deg, #000000, #000000);
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header img {
+            max-width: 150px;
+        }
+
+        .divider {
+            width: 75%;
+            height: 2px;
+            background-color: #000;
+            margin: 30px auto;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #3d7517, #3d7517);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #3d7517, #3d7517);
+        }
+
+        .form-control:focus {
+            border-color: #3d7517;
+            box-shadow: 0 0 0 0.2rem rgba(128, 0, 128, 0.25);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 24px;
+            margin-left: 10px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background: linear-gradient(45deg, #3d7517, #3d7517);
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(16px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <img src="/assets/ACAMP.png" alt="Logo ACAMP">
+    </div>
+    <div class="container">
+        <h2 class="text-center mb-4 font-weight-bold">INSCRIÇÕES ACAMP 360º 2025</h2>
+        <div class="divider"></div>
+        <form id="acampForm">
+            <div class="form-group">
+                <label for="nome">Nome Completo (Conforme RG)</label>
+                <input type="text" class="form-control" id="nome" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="CPF">CPF</label>
+                    <input type="text" class="form-control" id="cpf" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="dtnasc">Data de Nascimento</label>
+                    <input type="date" class="form-control" id="dtnasc" placeholder="DD/MM/AAAA" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="idade">Idade</label>
+                    <input type="text" class="form-control" id="idade" readonly>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="celular">Celular</label>
+                    <input type="text" class="form-control" id="celular"
+                        placeholder="(99) 99999-9999" required>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label for="contato">Nome para Contato</label>
+                <input type="text" class="form-control" id="contato" required>
+            </div>
+            <div class="form-group">
+                <label for="fonecontato">Celular do Contato</label>
+                <input type="tel" class="form-control" id="fonecontato"
+                    placeholder="(99) 99999-9999" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="cep">CEP</label>
+                    <input type="text" class="form-control" id="cep" pattern="[0-9]{5}-[0-9]{3}" maxlength="9"
+                        placeholder="00000-000" required>
+                </div>
+                <div class="form-group col-md-8">
+                    <label for="endereco">Endereço</label>
+                    <input type="text" class="form-control" id="endereco" readonly>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="numero">Número</label>
+                    <input type="number" class="form-control" id="numero" required>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="compl">Complemento</label>
+                    <input type="text" class="form-control" id="compl">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="bairro">Bairro</label>
+                    <input type="text" class="form-control" id="bairro" readonly>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="cidade">Cidade</label>
+                    <input type="text" class="form-control" id="cidade" readonly>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="igreja">Igreja</label>
+                    <select class="form-control" id="igreja" required>
+                        <option value="">Selecione</option>
+                        <option value="IEB Intermares">IEB Intermares</option>
+                        <option value="IEB Cidade Verde">IEB Cidade Verde</option>
+                        <option value="IEB Vila Feliz">IEB Vila Feliz</option>
+                        <option value="Outra">Outra Igreja</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6" id="outraIgrejaDiv" style="display: none;">
+                    <label for="outraIgreja">Qual Igreja?</label>
+                    <input type="text" class="form-control" id="outraIgreja">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Tem alguma alergia?
+                    <label class="switch">
+                        <input type="checkbox" id="alergia">
+                        <span class="slider"></span>
+                    </label>
+                </label>
+            </div>
+            <div class="form-group" id="quaisAlergiasDiv" style="display: none;">
+                <label for="quaisAlergias">Quais alergias?</label>
+                <input type="text" class="form-control" id="quaisAlergias">
+            </div>
+            <!-- <div class="form-group">
+                <label>Pago?
+                    <label class="switch">
+                        <input type="checkbox" id="pago">
+                        <span class="slider"></span>
+                    </label>
+                </label>
+            </div>
+            <div class="form-group" id="nomePaganteDiv">
+                <label for="nomePagante">Nome no Comprovante de quem Fez ou Fará o Pix</label>
+                <input type="text" class="form-control" id="nomePagante">
+            </div> -->
+            <div class="form-group">
+                <label for="dataPreenchimento">Data de Preenchimento</label>
+                <input type="text" class="form-control" id="dataPreenchimento" readonly>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" id="cadastrarBtn">Cadastrar</button>
+        </form>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-masker/1.1.0/vanilla-masker.min.js"></script>
+    <script>
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyC31C1X13eqVAOq_o5K2evI8q3GOfnpOpo",
+            authDomain: "iebi-2e84e.firebaseapp.com",
+            projectId: "iebi-2e84e",
+            storageBucket: "iebi-2e84e.appspot.com",
+            messagingSenderId: "634456198202",
+            appId: "1:634456198202:web:8b4de1b4def23a49303903"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Função para verificar se o nome já existe
+        function verificarNomeExistente(nome) {
+            return db.collection("ACAMP360")
+                .where("nome", "==", nome)
+                .where("anoacamp", "==", "2025")
+                .get()
+                .then((querySnapshot) => {
+                    return !querySnapshot.empty;
+                });
+        }
+
+        // Adicionar evento 'blur' ao campo 'nome'
+        document.getElementById('nome').addEventListener('blur', function () {
+            const nome = this.value.trim().toUpperCase();
+            if (nome) {
+                verificarNomeExistente(nome).then(existe => {
+                    if (existe) {
+                        alert('Este nome já está cadastrado para O ACAMP 360 2025.');
+                        this.value = ''; // Limpa o campo
+                        this.focus(); // Redireciona o cursor para o campo
+                        document.getElementById('cadastrarBtn').disabled = true;
+                    } else {
+                        document.getElementById('cadastrarBtn').disabled = false;
+                    }
+                });
+            }
+        });
+
+        // Função para converter texto para maiúsculas
+        function toUpperCase(input) {
+            input.value = input.value.toUpperCase();
+        }
+
+        // Adicionar evento na digitação para campos de texto
+        const textInputs = document.querySelectorAll('input[type="text"]');
+        textInputs.forEach(input => {
+            input.addEventListener('input', function () {
+                toUpperCase(this);
+            });
+        });
+
+        // Máscaras
+        VMasker(document.getElementById("cpf")).maskPattern("999.999.999-99");
+        VMasker(document.getElementById("celular")).maskPattern("(99) 99999-9999");
+        VMasker(document.getElementById("fonecontato")).maskPattern("(99) 99999-9999");
+        VMasker(document.getElementById("cep")).maskPattern("99999-999");
+
+        // Função para buscar endereço pelo CEP
+        function buscarEnderecoPorCEP(cep) {
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.erro) {
+                        document.getElementById('endereco').value = data.logradouro;
+                        document.getElementById('bairro').value = data.bairro;
+                        document.getElementById('cidade').value = data.localidade;
+                        // Converter para maiúsculas
+                        toUpperCase(document.getElementById('endereco'));
+                        toUpperCase(document.getElementById('bairro'));
+                        toUpperCase(document.getElementById('cidade'));
+                    } else {
+                        alert('CEP não encontrado.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar CEP:', error);
+                    alert('Erro ao buscar CEP. Por favor, tente novamente.');
+                });
+        }
+
+        // Adicionar evento para buscar endereço quando o CEP for preenchido
+        document.getElementById('cep').addEventListener('blur', function () {
+            const cep = this.value.replace(/\D/g, '');
+            if (cep.length === 8) {
+                buscarEnderecoPorCEP(cep);
+            }
+        });
+
+        // Calcular idade automaticamente
+        document.getElementById('dtnasc').addEventListener('change', function () {
+            const birthDate = new Date(this.value);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            document.getElementById('idade').value = age + " anos";
+        });
+
+        // Mostrar/esconder campo de outra igreja
+        document.getElementById('igreja').addEventListener('change', function () {
+            document.getElementById('outraIgrejaDiv').style.display =
+                this.value === 'Outra' ? 'block' : 'none';
+        });
+
+        // Mostrar/esconder campo de alergias
+        document.getElementById('alergia').addEventListener('change', function () {
+            document.getElementById('quaisAlergiasDiv').style.display =
+                this.checked ? 'block' : 'none';
+        });
+
+        // Definir data de preenchimento
+        document.getElementById('dataPreenchimento').value = new Date().toLocaleDateString('pt-BR');
+
+        document.getElementById('acampForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Validar campos ocultos
+            const outraIgrejaVisivel = document.getElementById('outraIgrejaDiv').style.display === 'block';
+            const quaisAlergiasVisivel = document.getElementById('quaisAlergiasDiv').style.display === 'block';
+
+            if (outraIgrejaVisivel && !document.getElementById('outraIgreja').value.trim()) {
+                alert('Por favor, preencha o campo "Qual Igreja?".');
+                return;
+            }
+
+            if (quaisAlergiasVisivel && !document.getElementById('quaisAlergias').value.trim()) {
+                alert('Por favor, preencha o campo "Quais alergias?".');
+                return;
+            }
+
+            // Verificar novamente se o nome já existe antes de enviar
+            const nome = document.getElementById('nome').value.trim().toUpperCase();
+            verificarNomeExistente(nome).then(existe => {
+                if (existe) {
+                    alert('Este nome já está cadastrado para o ACAMP 360º 2025. Não é possível prosseguir com o cadastro.');
+                    return;
+                }
+
+                // Se o nome não existir, continuar com o envio do formulário
+                const formData = {
+                    nome: nome,
+                    cpf: document.getElementById('cpf').value,
+                    dtnasc: document.getElementById('dtnasc').value,
+                    idade: document.getElementById('idade').value,
+                    email: document.getElementById('email').value,
+                    celular: document.getElementById('celular').value,
+                    contato: document.getElementById('contato').value,
+                    fonecontato: document.getElementById('fonecontato').value,
+                    cep: document.getElementById('cep').value,
+                    endereco: document.getElementById('endereco').value,
+                    numero: document.getElementById('numero').value,
+                    compl: document.getElementById('compl').value,
+                    bairro: document.getElementById('bairro').value,
+                    cidade: document.getElementById('cidade').value,
+                    igreja: document.getElementById('igreja').value,
+                    outraIgreja: document.getElementById('outraIgreja').value,
+                    alergia: document.getElementById('alergia').checked,
+                    quaisAlergias: document.getElementById('quaisAlergias').value,
+                    //pago: document.getElementById('pago').checked,
+                    //nomePagante: document.getElementById('nomePagante').value,
+                    dataPreenchimento: document.getElementById('dataPreenchimento').value,
+                    anoacamp: '2025',
+                    dtRegistro: new Date().toISOString()
+                };
+
+                db.collection("ACAMP360").add(formData)
+                    .then((docRef) => {
+                        console.log("Documento escrito com ID: ", docRef.id);
+                        window.location.href = 'obrigado.html';
+                        this.reset();
+                        // Resetar campos adicionais
+                        document.getElementById('outraIgrejaDiv').style.display = 'none';
+                        document.getElementById('quaisAlergiasDiv').style.display = 'none';
+                        document.getElementById('dataPreenchimento').value = new Date().toLocaleDateString('pt-BR');
+                        document.getElementById('idade').value = '';
+                    })
+                    .catch((error) => {
+                        console.error("Erro ao adicionar documento: ", error);
+                        console.log(error); // Adicione esta linha para obter mais detalhes sobre o erro
+                        alert('Erro ao realizar inscrição. Por favor, tente novamente.');
+                    });
+            });
+        });
+    </script>
+</body>
+
+</html>
