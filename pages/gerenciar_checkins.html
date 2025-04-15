@@ -341,21 +341,10 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
+    <script src="../firebase/firebaseConfig.js"></script>
+    
     <script>
-        // Configuração do Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyC31C1X13eqVAOq_o5K2evI8q3GOfnpOpo",
-            authDomain: "iebi-2e84e.firebaseapp.com",
-            projectId: "iebi-2e84e",
-            storageBucket: "iebi-2e84e.appspot.com",
-            messagingSenderId: "634456198202",
-            appId: "1:634456198202:web:8b4de1b4def23a49303903"
-        };
-
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-
+        
         // Variáveis para gráficos
         let graficoStatus;
         let graficoDias;
@@ -427,8 +416,8 @@
 
         function carregarDashboard() {
             // Buscar todas as inscrições com status de pagamento "pago"
-            db.collection("Acampamentos").doc("AcampBT2025").collection("inscricoes")
-                .where("anoacamp", "==", "2025")
+            db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes")
+                .where("anoevento", "==", "2025")
                 .where("statusPagamento", "==", "pago")
                 .get()
                 .then((querySnapshot) => {
@@ -463,7 +452,7 @@
 
         function buscarDatasCheckin() {
             // Buscar check-ins realizados
-            db.collection("Acampamentos").doc("AcampBT2025").collection("checkin")
+            db.collection("Eventos").doc("EssenciaMR2025").collection("checkin")
                 .get()
                 .then((querySnapshot) => {
                     const datasPorDia = {};
@@ -496,8 +485,8 @@
             tabelaCheckins.html('');
 
             // Buscar todos os acampantes
-            db.collection("Acampamentos").doc("AcampBT2025").collection("inscricoes")
-                .where("anoacamp", "==", "2025")
+            db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes")
+                .where("anoevento", "==", "2025")
                 .orderBy("nome")
                 .get()
                 .then((querySnapshot) => {
@@ -580,7 +569,7 @@
 
         function verDetalhes(nomeAcampante) {
             // Buscar detalhes do check-in
-            db.collection("Acampamentos").doc("AcampBT2025").collection("checkin")
+            db.collection("Eventos").doc("EssenciaMR2025").collection("checkin")
                 .where("nome", "==", nomeAcampante)
                 .limit(1)
                 .get()
@@ -720,7 +709,7 @@
 
         function exportarPDF(nomeAcampante) {
             // Buscar detalhes do check-in
-            db.collection("Acampamentos").doc("AcampBT2025").collection("checkin")
+            db.collection("Eventos").doc("EssenciaMR2025").collection("checkin")
                 .where("nome", "==", nomeAcampante)
                 .limit(1)
                 .get()
@@ -1008,7 +997,7 @@
             $('#confirmarExclusaoBtn').prop('disabled', true);
             
             // 1. Buscar o documento de check-in para excluir
-            db.collection("Acampamentos").doc("AcampBT2025").collection("checkin")
+            db.collection("Eventos").doc("EssenciaMR2025").collection("checkin")
                 .where("nome", "==", nomeAcampante)
                 .get()
                 .then((querySnapshot) => {
@@ -1021,9 +1010,9 @@
                     });
             
                     // 2. Atualizar o status na coleção de inscrições
-                    const updatePromise = db.collection("Acampamentos").doc("AcampBT2025").collection("inscricoes")
+                    const updatePromise = db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes")
                         .where("nome", "==", nomeAcampante)
-                        .where("anoacamp", "==", "2025")
+                        .where("anoevento", "==", "2025")
                         .get()
                         .then((inscricoesSnapshot) => {
                             const inscricoesPromises = [];

@@ -359,20 +359,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-
+    <script src="../firebase/firebaseConfig.js"></script>
+    
     <script>
-        // Configuração do Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyC31C1X13eqVAOq_o5K2evI8q3GOfnpOpo",
-            authDomain: "iebi-2e84e.firebaseapp.com",
-            projectId: "iebi-2e84e",
-            storageBucket: "iebi-2e84e.appspot.com",
-            messagingSenderId: "634456198202",
-            appId: "1:634456198202:web:8b4de1b4def23a49303903"
-        };
-
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
 
         // Variáveis para gráficos
         let graficoStatus;
@@ -414,7 +403,7 @@
 
                 // Atualizar participante com informações de pagamento
                 console.log("Atualizando status do participante para 'pago'...");
-                db.collection("Acampamentos").doc("AcampBT2025").collection("inscricoes").doc(participanteId)
+                db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes").doc(participanteId)
                     .update({
                         statusPagamento: 'pago',
                         formaPagamento: formaPagamento,
@@ -426,7 +415,7 @@
                         console.log("Registrando pagamento na coleção de pagamentos...");
                         
                         // Registrar pagamento na coleção de pagamentos
-                        return db.collection("Acampamentos").doc("AcampBT2025").collection("pagamentos").add({
+                        return db.collection("Eventos").doc("EssenciaMR2025").collection("pagamentos").add({
                             participanteId: participanteId,
                             participanteNome: $('#participante option:selected').text(),
                             valor: valorPagamento,
@@ -458,14 +447,14 @@
                 const participanteId = $(this).data('participante');
 
                 // Atualizar status do pagamento
-                db.collection("Acampamentos").doc("AcampBT2025").collection("pagamentos").doc(pagamentoId)
+                db.collection("Eventos").doc("EssenciaMR2025").collection("pagamentos").doc(pagamentoId)
                     .update({
                         status: 'estornado',
                         dataEstorno: new Date().toISOString()
                     })
                     .then(() => {
                         // Atualizar status do participante
-                        return db.collection("Acampamentos").doc("AcampBT2025").collection("inscricoes").doc(participanteId)
+                        return db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes").doc(participanteId)
                             .update({
                                 statusPagamento: 'pendente',
                                 dataPagamento: null,
@@ -491,7 +480,7 @@
 
         function carregarDashboard() {
             // Primeiro, vamos buscar os pagamentos confirmados
-            db.collection("Acampamentos").doc("AcampBT2025").collection("pagamentos")
+            db.collection("Eventos").doc("EssenciaMR2025").collection("pagamentos")
                 .where("status", "==", "confirmado")
                 .get()
                 .then((pagamentosSnapshot) => {
@@ -511,14 +500,14 @@
                     $('#valorPago').text(valorTotalPago.toFixed(2).replace('.', ','));
             
                     // Agora vamos buscar os dados de inscrições para os outros cards
-                    return db.collection("Acampamentos").doc("AcampBT2025").collection("inscricoes")
-                        .where("anoacamp", "==", "2025")
+                    return db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes")
+                        .where("anoevento", "==", "2025")
                         .get();
                 })
                 .then((querySnapshot) => {
                     let totalInscritos = querySnapshot.size;
                     let totalPendentes = 0;
-                    const valorInscricao = 250.00;
+                    const valorInscricao = 20.00;
             
                     querySnapshot.forEach((doc) => {
                         const participante = doc.data();
@@ -552,7 +541,7 @@
 
         function buscarFormasPagamento() {
             // Buscar pagamentos confirmados
-            db.collection("Acampamentos").doc("AcampBT2025").collection("pagamentos")
+            db.collection("Eventos").doc("EssenciaMR2025").collection("pagamentos")
                 .where("status", "==", "confirmado")
                 .get()
                 .then((querySnapshot) => {
@@ -583,8 +572,8 @@
             selectParticipante.html('<option value="">Selecione um participante</option>');
 
             // Buscar participantes com pagamento pendente
-            db.collection("Acampamentos").doc("AcampBT2025").collection("inscricoes")
-                .where("anoacamp", "==", "2025")
+            db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes")
+                .where("anoevento", "==", "2025")
                 .where("statusPagamento", "in", ["pendente", null])  // Apenas pendentes ou sem status
                 .orderBy("nome")
                 .get()
@@ -611,7 +600,7 @@
             tabelaPagamentos.html('');
 
             // Buscar pagamentos
-            db.collection("Acampamentos").doc("AcampBT2025").collection("pagamentos")
+            db.collection("Eventos").doc("EssenciaMR2025").collection("pagamentos")
                 .orderBy("dataPagamento", "desc")
                 .get()
                 .then((querySnapshot) => {
@@ -828,7 +817,7 @@
                 }
                 
                 // Atualizar o pagamento no Firestore
-                db.collection("Acampamentos").doc("AcampBT2025").collection("pagamentos").doc(pagamentoId)
+                db.collection("Eventos").doc("EssenciaMR2025").collection("pagamentos").doc(pagamentoId)
                     .update({
                         valor: valorPagamento,
                         formaPagamento: formaPagamento,
@@ -836,7 +825,7 @@
                     })
                     .then(() => {
                         // Atualizar o participante com as novas informações
-                        return db.collection("Acampamentos").doc("AcampBT2025").collection("inscricoes").doc(participanteId)
+                        return db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes").doc(participanteId)
                             .update({
                                 formaPagamento: formaPagamento,
                                 valorPago: valorPagamento

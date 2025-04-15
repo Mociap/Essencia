@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Participantes - ACAMP IEBI 2025</title>
+    <title>Participantes</title>
     <link rel="shortcut icon" href="../assets/3.ico" type="image/x-icon">
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -173,8 +173,8 @@
                         <th>Nome</th>
                         <th>Idade</th>
                         <th>Celular</th>
-                        <th>Responsável</th>
-                        <th>Cel. Responsável</th>
+                        <!-- <th>Responsável</th> -->
+                        <!-- <th>Cel. Responsável</th> -->
                         <th>Célula</th>
                         <th>Igreja</th>
                         <th>Pagamento</th>
@@ -217,17 +217,17 @@
                                 <h6>Informações Pessoais</h6>
                                 <hr>
                                 <p><strong>Nome:</strong> <span id="modalNome"></span></p>
-                                <p><strong>CPF:</strong> <span id="modalCPF"></span></p>
+                                <!-- <p><strong>CPF:</strong> <span id="modalCPF"></span></p> -->
                                 <p><strong>Data de Nascimento:</strong> <span id="modalDtNasc"></span></p>
                                 <p><strong>Idade:</strong> <span id="modalIdade"></span></p>
                                 <p><strong>Celular:</strong> <span id="modalCelular"></span></p>
-                                <p><strong>Email:</strong> <span id="modalEmail"></span></p>
+                                <!-- <p><strong>Email:</strong> <span id="modalEmail"></span></p> -->
                             </div>
                             <div class="col-md-6">
                                 <h6>Informações de Contato</h6>
                                 <hr>
-                                <p><strong>Responsável:</strong> <span id="modalResponsavel"></span></p>
-                                <p><strong>Celular Responsável:</strong> <span id="modalCelularResp"></span></p>
+                                <!-- <p><strong>Responsável:</strong> <span id="modalResponsavel"></span></p> -->
+                                <!-- <p><strong>Celular Responsável:</strong> <span id="modalCelularResp"></span></p> -->
                                 <p><strong>Endereço:</strong> <span id="modalEndereco"></span></p>
                                 <p><strong>Bairro:</strong> <span id="modalBairro"></span></p>
                                 <p><strong>Cidade:</strong> <span id="modalCidade"></span></p>
@@ -295,21 +295,10 @@
     <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-
+    <script src="../firebase/firebaseConfig.js"></script>
+    
     <script>
-        // Configuração do Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyC31C1X13eqVAOq_o5K2evI8q3GOfnpOpo",
-            authDomain: "iebi-2e84e.firebaseapp.com",
-            projectId: "iebi-2e84e",
-            storageBucket: "iebi-2e84e.appspot.com",
-            messagingSenderId: "634456198202",
-            appId: "1:634456198202:web:8b4de1b4def23a49303903"
-        };
-
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-
+        
         // Inicialização do DataTable
         let dataTable;
         let totalParticipantes = 0;
@@ -395,7 +384,7 @@
                     dadosAtualizacao.formaPagamento = ''; // Limpa a forma de pagamento se status for pendente
                 }
 
-                db.collection("Acampamentos").doc("AcampBT2025").collection("inscricoes").doc(participanteId)
+                db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes").doc(participanteId)
                     .update(dadosAtualizacao)
                     .then(() => {
                         alert('Status de pagamento atualizado com sucesso!');
@@ -435,8 +424,8 @@
 
         // Função para Carregar participante
         function carregarParticipantes() {
-            db.collection("Acampamentos").doc("AcampBT2025").collection("inscricoes")
-                .where("anoacamp", "==", "2025")
+            db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes")
+                .where("anoevento", "==", "2025")
                 .get()
                 .then((querySnapshot) => {
 
@@ -454,8 +443,8 @@
                             participante.nome,
                             participante.idade,
                             participante.celular,
-                            participante.contato,
-                            participante.fonecontato,
+                            // participante.contato,
+                            // participante.fonecontato,
                             participante.celula,
                             participante.igreja === 'Outra' ? participante.outraIgreja : participante.igreja,
                             `<span class="badge ${participante.statusPagamento === 'pago' ? 'badge-pago' : 'badge-pendente'}">${participante.statusPagamento === 'pago' ? 'Pago' : 'Pendente'}</span>`,
@@ -492,7 +481,7 @@
         }
 
         function verDetalhes(participanteId) {
-            db.collection("Acampamentos").doc("AcampBT2025").collection("inscricoes").doc(participanteId)
+            db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes").doc(participanteId)
                 .get()
                 .then((doc) => {
                     if (doc.exists) {
@@ -500,13 +489,13 @@
 
                         // Preencher dados no modal
                         $('#modalNome').text(p.nome);
-                        $('#modalCPF').text(p.cpf);
+                        // $('#modalCPF').text(p.cpf);
                         $('#modalDtNasc').text(formatarData(p.dtnasc));
                         $('#modalIdade').text(p.idade);
                         $('#modalCelular').text(p.celular);
-                        $('#modalEmail').text(p.email);
-                        $('#modalResponsavel').text(p.contato);
-                        $('#modalCelularResp').text(p.fonecontato);
+                        // $('#modalEmail').text(p.email);
+                        // $('#modalResponsavel').text(p.contato);
+                        // $('#modalCelularResp').text(p.fonecontato);
                         $('#modalEndereco').text(`${p.endereco}, ${p.numero} ${p.compl ? '- ' + p.compl : ''}`);
                         $('#modalBairro').text(p.bairro);
                         $('#modalCidade').text(p.cidade);
@@ -613,7 +602,7 @@
             }
 
             if (confirm("Tem certeza que deseja excluir este participante? Esta ação não pode ser desfeita.")) {
-                db.collection("Acampamentos").doc("AcampBT2025").collection("inscricoes").doc(participanteId)
+                db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes").doc(participanteId)
                     .delete()
                     .then(() => {
                         alert("Participante excluído com sucesso!");

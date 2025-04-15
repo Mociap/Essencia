@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHECK-IN ACAMP IEBI 2025</title>
+    <title>CHECK-IN</title>
     <link rel="shortcut icon" href="../assets/3.ico" type="image/x-icon">
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -221,16 +221,16 @@
 
 <body>
     <div class="header">
-        <h2 class="header-title">CHECK-IN ACAMP IEBI 2025</h2>
+        <h2 class="header-title">CHECK-IN</h2>
     </div>
     <div class="container">
-        <h2 class="text-center mb-4 font-weight-bold">CHECK-IN ACAMP IEBI 2025</h2>
+        <h2 class="text-center mb-4 font-weight-bold">CHECK-IN</h2>
         <div class="divider"></div>
 
         <div class="info-box">
             <p><strong>Informações importantes:</strong></p>
-            <p>Este formulário deve ser preenchido no momento do check-in do acampante.</p>
-            <p>Todas as informações são essenciais para garantir a segurança e bem-estar durante o acampamento.</p>
+            <p>Este formulário deve ser preenchido no momento do check-in do participante.</p>
+            <p>Todas as informações são essenciais para garantir a segurança e bem-estar durante o evento.</p>
             <p>Em caso de dúvidas, entre em contato com a equipe organizadora.</p>
         </div>
 
@@ -243,7 +243,7 @@
             <div class="form-group">
                 <label for="nome">Nome Completo</label>
                 <select class="form-control" id="nome" required>
-                    <option value="">Selecione o acampante</option>
+                    <option value="">Selecione o participante</option>
                     <!-- As opções serão carregadas dinamicamente via JavaScript -->
                 </select>
             </div>
@@ -474,7 +474,7 @@
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="autorizacaoParticipacao" required>
                     <label class="form-check-label" for="autorizacaoParticipacao">
-                        Autorizo a participação no acampamento
+                        Autorizo a participação no evento
                     </label>
                 </div>
             </div>
@@ -530,22 +530,11 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-masker/1.1.0/vanilla-masker.min.js"></script>
-    <script src="../firebaseConfig2.js"></script>
+    <script src="../firebase/firebaseConfig.js"></script>
+    <script src="../firebase/firebaseConfig2.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 
     <script>
-        // Configuração do Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyC31C1X13eqVAOq_o5K2evI8q3GOfnpOpo",
-            authDomain: "iebi-2e84e.firebaseapp.com",
-            projectId: "iebi-2e84e",
-            storageBucket: "iebi-2e84e.appspot.com",
-            messagingSenderId: "634456198202",
-            appId: "1:634456198202:web:8b4de1b4def23a49303903"
-        };
-
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
 
         // Função para converter texto para maiúsculas
         function toUpperCase(input) {
@@ -643,9 +632,9 @@
             }
             
             // Buscar acampantes com status "pago" no Firestore e que não fizeram check-in
-            db.collection("Acampamentos").doc("AcampBT2025").collection("inscricoes")
+            db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes")
                 .where("statusPagamento", "==", "pago")
-                .where("anoacamp", "==", "2025")
+                .where("anoevento", "==", "2025")
                 .orderBy("nome")
                 .get()
                 .then((querySnapshot) => {
@@ -696,9 +685,9 @@
             const nomeAcampante = this.value;
             if (nomeAcampante) {
                 // Buscar dados do acampante selecionado
-                db.collection("Acampamentos").doc("AcampBT2025").collection("inscricoes")
+                db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes")
                     .where("nome", "==", nomeAcampante)
-                    .where("anoacamp", "==", "2025")
+                    .where("anoevento", "==", "2025")
                     .get()
                     .then((querySnapshot) => {
                         if (!querySnapshot.empty) {
@@ -847,14 +836,14 @@
             };
 
             // Salvar no Firestore
-            db.collection("Acampamentos").doc("AcampBT2025").collection("checkin").add(formData)
+            db.collection("Eventos").doc("EssenciaMR2025").collection("checkin").add(formData)
                 .then((docRef) => {
                     console.log("Check-in realizado com ID: ", docRef.id);
                     
                     // Atualizar status na coleção de inscrições
-                    db.collection("Acampamentos").doc("AcampBT2025").collection("inscricoes")
+                    db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes")
                         .where("nome", "==", formData.nome)
-                        .where("anoacamp", "==", "2025")
+                        .where("anoevento", "==", "2025")
                         .get()
                         .then((querySnapshot) => {
                             querySnapshot.forEach((doc) => {

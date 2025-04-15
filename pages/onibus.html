@@ -470,21 +470,10 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-
+    <script src="../firebase/firebaseConfig.js"></script>
+        
     <script>
-        // Configuração do Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyC31C1X13eqVAOq_o5K2evI8q3GOfnpOpo",
-            authDomain: "iebi-2e84e.firebaseapp.com",
-            projectId: "iebi-2e84e",
-            storageBucket: "iebi-2e84e.appspot.com",
-            messagingSenderId: "634456198202",
-            appId: "1:634456198202:web:8b4de1b4def23a49303903"
-        };
-
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-
+        
         // Variáveis globais
         let todosParticipantes = [];
         let participantesFiltrados = [];
@@ -537,7 +526,7 @@
                 }
                 
                 // Atualizar o participante no Firestore
-                db.collection("Acampamentos").doc("AcampBT2025").collection("inscricoes").doc(participanteId)
+                db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes").doc(participanteId)
                     .update({
                         onibus: onibusNumero === 'sem' ? null : onibusNumero,
                         observacoesOnibus: observacoes,
@@ -610,8 +599,8 @@
 
         function carregarParticipantes() {
             // Buscar participantes com pagamento confirmado
-            db.collection("Acampamentos").doc("AcampBT2025").collection("inscricoes")
-                .where("anoacamp", "==", "2025")
+            db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes")
+                .where("anoevento", "==", "2025")
                 .where("statusPagamento", "==", "pago")
                 .get()
                 .then((querySnapshot) => {
@@ -841,7 +830,7 @@
         function removerDoOnibus(participanteId) {
             if (confirm('Tem certeza que deseja remover este participante do ônibus?')) {
                 // Atualizar o participante no Firestore
-                db.collection("Acampamentos").doc("AcampBT2025").collection("inscricoes").doc(participanteId)
+                db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes").doc(participanteId)
                     .update({
                         onibus: null,
                         observacoesOnibus: null,
@@ -876,7 +865,7 @@
             
             // Iterar sobre todos os participantes
             todosParticipantes.forEach(participante => {
-                const ref = db.collection("Acampamentos").doc("AcampBT2025").collection("inscricoes").doc(participante.id);
+                const ref = db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes").doc(participante.id);
                 
                 // Adicionar operação ao lote
                 batch.update(ref, {
@@ -1078,7 +1067,7 @@
                 }
                 
                 // Adicionar operação ao lote
-                const ref = db.collection("Acampamentos").doc("AcampBT2025").collection("inscricoes").doc(participanteId);
+                const ref = db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes").doc(participanteId);
                 batch.update(ref, {
                     onibus: onibus,
                     observacoesOnibus: observacoes,
@@ -1182,7 +1171,7 @@
             }
             
             // Atualizar o participante no Firestore
-            db.collection("Acampamentos").doc("AcampBT2025").collection("inscricoes").doc(participanteId)
+            db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes").doc(participanteId)
                 .update({
                     onibus: onibusNumero.toString(),
                     dataAtualizacaoOnibus: new Date().toISOString()
