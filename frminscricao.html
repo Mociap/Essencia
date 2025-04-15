@@ -254,11 +254,11 @@
                 <label for="fonecontato">Celular do Responsável</label>
                 <input type="tel" class="form-control" id="fonecontato" placeholder="(99) 99999-9999" required>
             </div> -->
-            <div class="form-row">
+            <!-- <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="cep">CEP</label>
                     <input type="text" class="form-control" id="cep" pattern="[0-9]{5}-[0-9]{3}" maxlength="9"
-                        placeholder="00000-000" required>
+                        placeholder="00000-000">
                 </div>
                 <div class="form-group col-md-8">
                     <label for="endereco">Endereço</label>
@@ -268,7 +268,7 @@
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="numero">Número</label>
-                    <input type="number" class="form-control" id="numero" required>
+                    <input type="number" class="form-control" id="numero">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="compl">Complemento</label>
@@ -282,7 +282,7 @@
                     <label for="cidade">Cidade</label>
                     <input type="text" class="form-control" id="cidade" readonly>
                 </div>
-            </div>
+            </div> -->
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="igreja">Igreja</label>
@@ -384,38 +384,38 @@
         // VMasker(document.getElementById("cpf")).maskPattern("999.999.999-99");
         VMasker(document.getElementById("celular")).maskPattern("(99) 99999-9999");
         // VMasker(document.getElementById("fonecontato")).maskPattern("(99) 99999-9999");
-        VMasker(document.getElementById("cep")).maskPattern("99999-999");
+        // VMasker(document.getElementById("cep")).maskPattern("99999-999");
 
         // Função para buscar endereço pelo CEP
-        function buscarEnderecoPorCEP(cep) {
-            fetch(`https://viacep.com.br/ws/${cep}/json/`)
-                .then(response => response.json())
-                .then(data => {
-                    if (!data.erro) {
-                        document.getElementById('endereco').value = data.logradouro;
-                        document.getElementById('bairro').value = data.bairro;
-                        document.getElementById('cidade').value = data.localidade;
-                        // Converter para maiúsculas
-                        toUpperCase(document.getElementById('endereco'));
-                        toUpperCase(document.getElementById('bairro'));
-                        toUpperCase(document.getElementById('cidade'));
-                    } else {
-                        alert('CEP não encontrado.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Erro ao buscar CEP:', error);
-                    alert('Erro ao buscar CEP. Por favor, tente novamente.');
-                });
-        }
+        // function buscarEnderecoPorCEP(cep) {
+        //     fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             if (!data.erro) {
+        //                 document.getElementById('endereco').value = data.logradouro;
+        //                 document.getElementById('bairro').value = data.bairro;
+        //                 document.getElementById('cidade').value = data.localidade;
+        //                 // Converter para maiúsculas
+        //                 toUpperCase(document.getElementById('endereco'));
+        //                 toUpperCase(document.getElementById('bairro'));
+        //                 toUpperCase(document.getElementById('cidade'));
+        //             } else {
+        //                 alert('CEP não encontrado.');
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error('Erro ao buscar CEP:', error);
+        //             alert('Erro ao buscar CEP. Por favor, tente novamente.');
+        //         });
+        // }
 
         // Adicionar evento para buscar endereço quando o CEP for preenchido
-        document.getElementById('cep').addEventListener('blur', function () {
-            const cep = this.value.replace(/\D/g, '');
-            if (cep.length === 8) {
-                buscarEnderecoPorCEP(cep);
-            }
-        });
+        // document.getElementById('cep').addEventListener('blur', function () {
+        //     const cep = this.value.replace(/\D/g, '');
+        //     if (cep.length === 8) {
+        //         buscarEnderecoPorCEP(cep);
+        //     }
+        // });
 
         // Calcular idade automaticamente
         document.getElementById('dtnasc').addEventListener('change', function () {
@@ -626,12 +626,12 @@
                     celular: document.getElementById('celular').value,
                     // contato: document.getElementById('contato').value,
                     // fonecontato: document.getElementById('fonecontato').value,
-                    cep: document.getElementById('cep').value,
-                    endereco: document.getElementById('endereco').value,
-                    numero: document.getElementById('numero').value,
-                    compl: document.getElementById('compl').value,
-                    bairro: document.getElementById('bairro').value,
-                    cidade: document.getElementById('cidade').value,
+                    // cep: document.getElementById('cep').value,
+                    // endereco: document.getElementById('endereco').value,
+                    // numero: document.getElementById('numero').value,
+                    // compl: document.getElementById('compl').value,
+                    // bairro: document.getElementById('bairro').value,
+                    // cidade: document.getElementById('cidade').value,
                     igreja: document.getElementById('igreja').value,
                     celula: document.getElementById('celula').value,
                     supervisor: document.getElementById('supervisor').value,
