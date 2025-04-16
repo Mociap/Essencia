@@ -201,88 +201,65 @@
         </div>
 
         <!-- Modal de Detalhes do Participante -->
-        <div class="modal fade" id="participanteModal" tabindex="-1" role="dialog"
-            aria-labelledby="participanteModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="participanteModalLabel">Detalhes do Participante</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+<div class="modal fade" id="participanteModal" tabindex="-1" role="dialog" aria-labelledby="participanteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="participanteModalLabel">Detalhes do Participante</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Informações Pessoais</h6>
+                        <hr>
+                        <p><strong>Nome:</strong> <span id="modalNome"></span></p>
+                        <p><strong>Data de Nascimento:</strong> <span id="modalDtNasc"></span></p>
+                        <p><strong>Idade:</strong> <span id="modalIdade"></span></p>
+                        <p><strong>Celular:</strong> <span id="modalCelular"></span></p>
                     </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h6>Informações Pessoais</h6>
-                                <hr>
-                                <p><strong>Nome:</strong> <span id="modalNome"></span></p>
-                                <!-- <p><strong>CPF:</strong> <span id="modalCPF"></span></p> -->
-                                <p><strong>Data de Nascimento:</strong> <span id="modalDtNasc"></span></p>
-                                <p><strong>Idade:</strong> <span id="modalIdade"></span></p>
-                                <p><strong>Celular:</strong> <span id="modalCelular"></span></p>
-                                <!-- <p><strong>Email:</strong> <span id="modalEmail"></span></p> -->
-                            </div>
-                            <div class="col-md-6">
-                                <h6>Informações de Contato</h6>
-                                <hr>
-                                <!-- <p><strong>Responsável:</strong> <span id="modalResponsavel"></span></p> -->
-                                <!-- <p><strong>Celular Responsável:</strong> <span id="modalCelularResp"></span></p> -->
-                                <p><strong>Endereço:</strong> <span id="modalEndereco"></span></p>
-                                <p><strong>Bairro:</strong> <span id="modalBairro"></span></p>
-                                <p><strong>Cidade:</strong> <span id="modalCidade"></span></p>
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-md-6">
-                                <h6>Informações Igreja</h6>
-                                <hr>
-                                <p><strong>Igreja:</strong> <span id="modalIgreja"></span></p>
-                                <p><strong>Célula:</strong> <span id="modalCelula"></span></p>
-                                <p><strong>Supervisor:</strong> <span id="modalSupervisor"></span></p>
-                                <p><strong>Rede:</strong> <span id="modalRede"></span></p>
-                            </div>
-                            <div class="col-md-6">
-                                <h6>Informações Pagamento</h6>
-                                <hr>
-                                <p><strong>Status:</strong> <span id="modalStatusPagamento"></span></p>
-                                <p><strong>Data Pagamento:</strong> <span id="modalDataPagamento"></span></p>
-                                <p><strong>Forma de Pagamento:</strong> <span id="modalFormaPagamento"></span></p>
-
-                                <!--<div class="form-group mt-4">
-                                    <label for="updatePagamento">Atualizar Status de Pagamento</label>
-                                    <select class="form-control" id="updatePagamento">
-                                        <option value="pendente">Pendente</option>
-                                        <option value="pago">Pago</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group mt-3" id="divFormaPagamento" style="display:none;">
-                                    <label for="updateFormaPagamento">Forma de Pagamento</label>
-                                    <select class="form-control" id="updateFormaPagamento" required>
-                                        <option value="">Selecione</option>
-                                        <option value="Dinheiro">Dinheiro</option>
-                                        <option value="PIX">PIX</option>
-                                        <option value="Cartão">Cartão</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Forma de pagamento é obrigatória quando o status é Pago.
-                                    </div>
-                                </div>
-                                <button class="btn btn-success btn-sm" id="btnSalvarPagamento">Salvar</button>
-                            -->
-                            </div>
+                    <div class="col-md-6">
+                        <h6>Informações do Responsável</h6>
+                        <hr>
+                        <p><strong>Nome do Responsável:</strong> <span id="modalResponsavel"></span></p>
+                        <p><strong>CPF do Responsável:</strong> <span id="modalCpfResponsavel"></span></p>
+                        <p><strong>Celular do Responsável:</strong> <span id="modalCelularResp"></span></p>
+                        <div id="assinaturaContainer" style="display: none;">
+                            <p><strong>Assinatura do Responsável:</strong></p>
+                            <img id="modalAssinatura" src="" alt="Assinatura do Responsável" style="max-width: 100%; border: 1px solid #ddd; margin-top: 5px;">
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger mr-auto" id="btnExcluirParticipante">
-                            <i class="material-icons align-middle">delete</i> Excluir Participante
-                        </button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <h6>Informações Igreja</h6>
+                        <hr>
+                        <p><strong>Igreja:</strong> <span id="modalIgreja"></span></p>
+                        <p><strong>Célula:</strong> <span id="modalCelula"></span></p>
+                        <p><strong>Supervisor:</strong> <span id="modalSupervisor"></span></p>
+                        <p><strong>Rede:</strong> <span id="modalRede"></span></p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Informações Pagamento</h6>
+                        <hr>
+                        <p><strong>Status:</strong> <span id="modalStatusPagamento"></span></p>
+                        <p><strong>Data de Preenchimento:</strong> <span id="modalDataPreenchimento"></span></p>
+                        <p><strong>Data de Registro:</strong> <span id="modalDtRegistro"></span></p>
+                        <p><strong>Ano do Evento:</strong> <span id="modalAnoEvento"></span></p>
                     </div>
                 </div>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger mr-auto" id="btnExcluirParticipante">
+                    <i class="material-icons align-middle">delete</i> Excluir Participante
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
         </div>
+    </div>
+</div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -481,59 +458,80 @@
         }
 
         function verDetalhes(participanteId) {
-            db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes").doc(participanteId)
-                .get()
-                .then((doc) => {
-                    if (doc.exists) {
-                        const p = doc.data();
+    db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes").doc(participanteId)
+        .get()
+        .then((doc) => {
+            if (doc.exists) {
+                const p = doc.data();
+                
+                // Informações Pessoais
+                $('#modalNome').text(p.nome || 'N/A');
+                $('#modalDtNasc').text(formatarData(p.dtnasc) || 'N/A');
+                $('#modalIdade').text(p.idade || 'N/A');
+                $('#modalCelular').text(p.celular || 'N/A');
+                
+                // Informações do Responsável
+                $('#modalResponsavel').text(p.contato || 'N/A');
+                $('#modalCpfResponsavel').text(p.cpfResponsavel || 'N/A');
+                $('#modalCelularResp').text(p.fonecontato || 'N/A');
+                
+                // Exibir assinatura se existir
+                if (p.assinaturaResponsavel) {
+                    $('#assinaturaContainer').show();
+                    $('#modalAssinatura').attr('src', p.assinaturaResponsavel);
+                } else {
+                    $('#assinaturaContainer').hide();
+                }
+                
+                // Informações da Igreja
+                if (p.igreja === 'Outra') {
+                    $('#modalIgreja').text(p.outraIgreja || 'Outra (não especificada)');
+                } else {
+                    $('#modalIgreja').text(p.igreja || 'N/A');
+                }
+                $('#modalCelula').text(p.celula || 'N/A');
+                $('#modalSupervisor').text(p.supervisor || 'N/A');
+                $('#modalRede').text(p.rede || 'N/A');
+                
+                // Informações de Pagamento e Registro
+                $('#modalStatusPagamento').html(`<span class="badge ${p.statusPagamento === 'pago' ? 'badge-pago' : 'badge-pendente'}">${p.statusPagamento === 'pago' ? 'Pago' : 'Pendente'}</span>`);
+                $('#modalDataPreenchimento').text(p.dataPreenchimento || 'N/A');
+                $('#modalDtRegistro').text(formatarDataHora(p.dtRegistro) || 'N/A');
+                $('#modalAnoEvento').text(p.anoevento || 'N/A');
+                
+                // Armazenar ID do participante no botão de exclusão
+                $('#btnExcluirParticipante').data('id', doc.id);
+                
+                // Abrir modal
+                $('#participanteModal').modal('show');
+            } else {
+                console.error("Documento não encontrado para ID:", participanteId);
+                alert("Participante não encontrado!");
+            }
+        })
+        .catch((error) => {
+            console.error("Erro ao buscar detalhes: ", error);
+            alert("Erro ao buscar detalhes do participante.");
+        });
+}
 
-                        // Preencher dados no modal
-                        $('#modalNome').text(p.nome);
-                        // $('#modalCPF').text(p.cpf);
-                        $('#modalDtNasc').text(formatarData(p.dtnasc));
-                        $('#modalIdade').text(p.idade);
-                        $('#modalCelular').text(p.celular);
-                        // $('#modalEmail').text(p.email);
-                        // $('#modalResponsavel').text(p.contato);
-                        // $('#modalCelularResp').text(p.fonecontato);
-                        $('#modalEndereco').text(`${p.endereco}, ${p.numero} ${p.compl ? '- ' + p.compl : ''}`);
-                        $('#modalBairro').text(p.bairro);
-                        $('#modalCidade').text(p.cidade);
-                        $('#modalIgreja').text(p.igreja === 'Outra' ? p.outraIgreja : p.igreja);
-                        $('#modalCelula').text(p.celula || 'N/A');
-                        $('#modalSupervisor').text(p.supervisor || 'N/A');
-                        $('#modalRede').text(p.rede || 'N/A');
-                        $('#modalStatusPagamento').html(`<span class="badge ${p.statusPagamento === 'pago' ? 'badge-pago' : 'badge-pendente'}">${p.statusPagamento === 'pago' ? 'Pago' : 'Pendente'}</span>`);
-                        $('#modalDataPagamento').text(p.dataPagamento ? formatarData(p.dataPagamento) : 'N/A');
-                        $('#modalFormaPagamento').text(p.formaPagamento || 'N/A');
-
-                        // Configurar a visibilidade do campo de forma de pagamento
-                        if ($('#updatePagamento').val() === 'pago') {
-                            $('#divFormaPagamento').show();
-                            $('#updateFormaPagamento').val(p.formaPagamento || '');
-                        } else {
-                            $('#divFormaPagamento').hide();
-                        }
-
-                        // Definir valor atual do select de pagamento
-                        $('#updatePagamento').val(p.statusPagamento || 'pendente');
-
-                        // Armazenar ID do participante no botão
-                        $('#btnSalvarPagamento').data('id', doc.id);
-                        $('#btnExcluirParticipante').data('id', doc.id);
-
-                        // Abrir modal
-                        $('#participanteModal').modal('show');
-                    } else {
-                        console.error("Documento não encontrado para ID:", participanteId);
-                        alert("Participante não encontrado!");
-                    }
-                })
-                .catch((error) => {
-                    console.error("Erro ao buscar detalhes: ", error);
-                    alert("Erro ao buscar detalhes do participante.");
-                });
-        }
+// Função para formatar data e hora
+function formatarDataHora(dataString) {
+    if (!dataString) return '';
+    
+    try {
+        const data = new Date(dataString);
+        return data.toLocaleString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    } catch (e) {
+        return dataString;
+    }
+}
 
         function aplicarFiltros() {
             const filtroIgreja = $('#filterIgreja').val();
