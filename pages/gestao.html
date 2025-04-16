@@ -395,7 +395,7 @@
                 .then((querySnapshot) => {
                     let totalInscritos = querySnapshot.size;
                     let totalPagos = 0;
-                    const valorInscricao = 250.00;
+                    const valorInscricao = 20.00;
 
                     querySnapshot.forEach((doc) => {
                         const participante = doc.data();
@@ -586,7 +586,7 @@
                                     <div>
                                         <div><strong>${pagamento.participanteNome || "Participante"}</strong></div>
                                         <small class="text-muted">
-                                            R$ ${(pagamento.valor || 250).toFixed(2).replace('.', ',')} • 
+                                            R$ ${(pagamento.valor || 20).toFixed(2).replace('.', ',')} • 
                                             ${formaPagamento} • 
                                             ${dataPagamento.toLocaleDateString('pt-BR')}
                                         </small>
