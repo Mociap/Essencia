@@ -195,23 +195,22 @@
         }
 
         .signature-container {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-    margin-bottom: 10px;
-}
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            margin-bottom: 10px;
+        }
 
-.signature-pad {
-    width: 100%;
-    height: 200px;
-    touch-action: none;
-}
+        .signature-pad {
+            width: 100%;
+            height: 200px;
+            touch-action: none;
+        }
 
-.signature-buttons {
-    display: flex;
-    justify-content: flex-end;
-}
-
+        .signature-buttons {
+            display: flex;
+            justify-content: flex-end;
+        }
     </style>
 </head>
 
@@ -264,7 +263,7 @@
                     <input type="text" class="form-control" id="celular" placeholder="(99) 99999-9999" required>
                 </div>
             </div>
-            
+
             <!-- <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="cep">CEP</label>
@@ -349,20 +348,24 @@
                         <p class="mb-1"><strong>TERMO DE AUTORIZAÇÃO</strong></p>
                         <p class="mb-1">Eu <span id="nomeResponsavelSpan" style="font-weight: bold;"></span> autorizo a
                             participão de <span id="nomeParticipanteSpan" style="font-weight: bold;"></span> no evento
-                            "Essência", organizado pela IEB Missão Resgate na cidade do Conde-PB, a ser realizado no dia 26/04/2025.</p>
+                            "Essência", organizado pela IEB Missão Resgate na cidade do Conde-PB, a ser realizado no dia
+                            26/04/2025.</p>
                         <p class="mb-1">Autorizo também que o(a) referido(a) adolescente utilize o transporte oferecido
-                            pela IEB Intermares, onde será acompanhado pelo líderes de jovens Alysson Samuel Batista de Amorim 
-                            (CPF: 093.463.304-57) e Raissa Bruna de A. Rodrigues Amorim (CPF: 070.085.934-90), maiores, capazes, casados 
+                            pela IEB Intermares, onde será acompanhado pelo líderes de jovens Alysson Samuel Batista de
+                            Amorim
+                            (CPF: 093.463.304-57) e Raissa Bruna de A. Rodrigues Amorim (CPF: 070.085.934-90), maiores,
+                            capazes, casados
                             e empresários.</p>
-                            Isentando a organização e os responsáveis pelo evento de quaisquer
-                            responsabilidades em caso de incidentes durante o trajeto e a permanência no evento, exceto
-                            em casos de negligência comprovada.</p>
+                        Isentando a organização e os responsáveis pelo evento de quaisquer
+                        responsabilidades em caso de incidentes durante o trajeto e a permanência no evento, exceto
+                        em casos de negligência comprovada.</p>
                         <p class="mb-1">Declaro estar ciente de todas as informações referentes ao evento e ao
                             transporte, bem como das normas e condutas esperadas dos participantes. Comprometo-me a
                             fornecer informações médicas relevantes, caso necessário.</p>
-                            <p class="mb-1">A presente autorização é válida apenas para o dia 26/04/2025 – percurso ida e volta.</p>
+                        <p class="mb-1">A presente autorização é válida apenas para o dia 26/04/2025 – percurso ida e
+                            volta.</p>
                     </div>
-                    
+
                 </div>
 
                 <div class="form-group mt-3">
@@ -371,12 +374,13 @@
                         <canvas id="signature-pad" class="signature-pad" width="400" height="200"></canvas>
                     </div>
                     <div class="signature-buttons mt-2">
-                        <button type="button" class="btn btn-secondary btn-sm" id="clear-signature">Limpar Assinatura</button>
+                        <button type="button" class="btn btn-secondary btn-sm" id="clear-signature">Limpar
+                            Assinatura</button>
                     </div>
                     <input type="hidden" id="assinaturaData" name="assinaturaData">
                     <small class="form-text text-muted">Por favor, assine usando o mouse ou touch na tela.</small>
                 </div>
-                
+
             </div>
 
             <div class="form-group">
@@ -394,6 +398,8 @@
     <script src="./firebase/firebaseConfig.js"></script>
     <script src="./firebase/firebaseConfig2.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 
     <script>
 
@@ -493,64 +499,64 @@
 
         // Calcular idade automaticamente
         document.getElementById('dtnasc').addEventListener('change', function () {
-    const birthDate = new Date(this.value);
-    const today = new Date();
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-    }
-    document.getElementById('idade').value = age + " anos";
-    
-    // Controlar a exibição dos campos de responsável e autorização
-    const responsavelDiv = document.getElementById('responsavelDiv');
-    const autorizacaoDiv = document.getElementById('autorizacaoDiv');
-    const contatoField = document.getElementById('contato');
-    const fonecontatoField = document.getElementById('fonecontato');
-    const cpfResponsavelField = document.getElementById('cpfResponsavel');
-    const signatureContainer = document.querySelector('.signature-container')?.parentElement;
-    
-    if (age < 18) {
-        // Mostrar campos e torná-los obrigatórios para menores de 18
-        responsavelDiv.style.display = 'block';
-        autorizacaoDiv.style.display = 'block';
-        if (signatureContainer) signatureContainer.style.display = 'block';
-        
-        contatoField.required = true;
-        fonecontatoField.required = true;
-        cpfResponsavelField.required = true;
-        
-        contatoField.parentElement.querySelector('label').innerHTML = 'Nome do Responsável (Obrigatório para menor de 18 anos) *';
-        fonecontatoField.parentElement.querySelector('label').innerHTML = 'Celular do Responsável (Obrigatório para menor de 18 anos) *';
-        cpfResponsavelField.parentElement.querySelector('label').innerHTML = 'CPF do Responsável (Obrigatório para menor de 18 anos) *';
-    } else {
-        // Ocultar campos e remover obrigatoriedade para maiores de 18
-        responsavelDiv.style.display = 'none';
-        autorizacaoDiv.style.display = 'none';
-        if (signatureContainer) signatureContainer.style.display = 'none';
-        
-        contatoField.required = false;
-        fonecontatoField.required = false;
-        cpfResponsavelField.required = false;
-        
-        // Limpar os valores
-        contatoField.value = '';
-        fonecontatoField.value = '';
-        cpfResponsavelField.value = '';
-        
-        // Limpar a assinatura se o pad existir
-        if (typeof signaturePad !== 'undefined' && signaturePad) {
-            signaturePad.clear();
-        }
-        
-        contatoField.parentElement.querySelector('label').innerHTML = 'Nome do Responsável';
-        fonecontatoField.parentElement.querySelector('label').innerHTML = 'Celular do Responsável';
-        cpfResponsavelField.parentElement.querySelector('label').innerHTML = 'CPF do Responsável';
-    }
-    
-    // Atualizar o texto de autorização
-    atualizarTextoAutorizacao();
-});
+            const birthDate = new Date(this.value);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            document.getElementById('idade').value = age + " anos";
+
+            // Controlar a exibição dos campos de responsável e autorização
+            const responsavelDiv = document.getElementById('responsavelDiv');
+            const autorizacaoDiv = document.getElementById('autorizacaoDiv');
+            const contatoField = document.getElementById('contato');
+            const fonecontatoField = document.getElementById('fonecontato');
+            const cpfResponsavelField = document.getElementById('cpfResponsavel');
+            const signatureContainer = document.querySelector('.signature-container')?.parentElement;
+
+            if (age < 18) {
+                // Mostrar campos e torná-los obrigatórios para menores de 18
+                responsavelDiv.style.display = 'block';
+                autorizacaoDiv.style.display = 'block';
+                if (signatureContainer) signatureContainer.style.display = 'block';
+
+                contatoField.required = true;
+                fonecontatoField.required = true;
+                cpfResponsavelField.required = true;
+
+                contatoField.parentElement.querySelector('label').innerHTML = 'Nome do Responsável (Obrigatório para menor de 18 anos) *';
+                fonecontatoField.parentElement.querySelector('label').innerHTML = 'Celular do Responsável (Obrigatório para menor de 18 anos) *';
+                cpfResponsavelField.parentElement.querySelector('label').innerHTML = 'CPF do Responsável (Obrigatório para menor de 18 anos) *';
+            } else {
+                // Ocultar campos e remover obrigatoriedade para maiores de 18
+                responsavelDiv.style.display = 'none';
+                autorizacaoDiv.style.display = 'none';
+                if (signatureContainer) signatureContainer.style.display = 'none';
+
+                contatoField.required = false;
+                fonecontatoField.required = false;
+                cpfResponsavelField.required = false;
+
+                // Limpar os valores
+                contatoField.value = '';
+                fonecontatoField.value = '';
+                cpfResponsavelField.value = '';
+
+                // Limpar a assinatura se o pad existir
+                if (typeof signaturePad !== 'undefined' && signaturePad) {
+                    signaturePad.clear();
+                }
+
+                contatoField.parentElement.querySelector('label').innerHTML = 'Nome do Responsável';
+                fonecontatoField.parentElement.querySelector('label').innerHTML = 'Celular do Responsável';
+                cpfResponsavelField.parentElement.querySelector('label').innerHTML = 'CPF do Responsável';
+            }
+
+            // Atualizar o texto de autorização
+            atualizarTextoAutorizacao();
+        });
 
         // Mostrar/esconder campo de outra igreja
         document.getElementById('igreja').addEventListener('change', function () {
@@ -691,127 +697,271 @@
         dataPreenchimentoElement.value = dataAtual;
         //console.log('Valor após atribuição:', dataPreenchimentoElement.value);
 
+        function gerarPDF(dados, docId) {
+            // Importar jsPDF do escopo global
+            const { jsPDF } = window.jspdf;
+
+            // Criar uma nova instância de jsPDF
+            const doc = new jsPDF();
+
+            // Adicionar título
+            doc.setFontSize(18);
+            doc.text("AUTORIZAÇÃO PARA EVENTO ESSÊNCIA 2025", 105, 20, { align: 'center' });
+
+            // Adicionar logo (opcional)
+            // doc.addImage("URL_DA_LOGO", "PNG", 10, 10, 30, 30);
+
+            // Adicionar informações do participante
+            doc.setFontSize(12);
+            doc.text("DADOS DO PARTICIPANTE", 105, 35, { align: 'center' });
+
+            // Criar tabela com dados do participante
+            const participanteData = [
+                ["Nome", dados.nome],
+                ["Data de Nascimento", formatarData(dados.dtnasc)],
+                ["Idade", dados.idade],
+                ["Celular", dados.celular],
+                ["Igreja", dados.igreja === "Outra" ? dados.outraIgreja : dados.igreja]
+            ];
+
+            // Se for da IEB Intermares, adicionar informações da célula
+            if (dados.igreja === "IEB Intermares" && dados.celula) {
+                participanteData.push(["Célula", dados.celula]);
+                if (dados.supervisor) participanteData.push(["Supervisor", dados.supervisor]);
+                if (dados.rede) participanteData.push(["Rede", dados.rede]);
+            }
+
+            doc.autoTable({
+                startY: 40,
+                head: [],
+                body: participanteData,
+                theme: 'grid',
+                styles: { fontSize: 10 },
+                headStyles: { fillColor: [100, 0, 200] },
+                columnStyles: { 0: { cellWidth: 50 } }
+            });
+
+            // Se for menor de idade, adicionar dados do responsável
+            if (dados.contato && dados.fonecontato && dados.cpfResponsavel) {
+                const lastY = doc.lastAutoTable.finalY + 10;
+                doc.text("DADOS DO RESPONSÁVEL", 105, lastY, { align: 'center' });
+
+                const responsavelData = [
+                    ["Nome", dados.contato],
+                    ["CPF", dados.cpfResponsavel],
+                    ["Celular", dados.fonecontato]
+                ];
+
+                doc.autoTable({
+                    startY: lastY + 5,
+                    head: [],
+                    body: responsavelData,
+                    theme: 'grid',
+                    styles: { fontSize: 10 },
+                    headStyles: { fillColor: [100, 0, 200] },
+                    columnStyles: { 0: { cellWidth: 50 } }
+                });
+
+                // Adicionar texto de autorização
+                const lastY2 = doc.lastAutoTable.finalY + 10;
+                doc.setFontSize(11);
+                doc.text("TERMO DE AUTORIZAÇÃO", 105, lastY2, { align: 'center' });
+
+                doc.setFontSize(9);
+                const textoAutorizacao = [
+                    `Eu ${dados.contato} autorizo a participação de ${dados.nome} no evento "Essência", organizado pela IEB Missão Resgate na cidade do Conde-PB, a ser realizado no dia 26/04/2025.`,
+                    "",
+                    "Autorizo também que o(a) referido(a) adolescente utilize o transporte oferecido pela IEB Intermares, onde será acompanhado pelo líderes de jovens Alysson Samuel Batista de Amorim (CPF: 093.463.304-57) e Raissa Bruna de A. Rodrigues Amorim (CPF: 070.085.934-90), maiores, capazes, casados e empresários.",
+                    "",
+                    "Isentando a organização e os responsáveis pelo evento de quaisquer responsabilidades em caso de incidentes durante o trajeto e a permanência no evento, exceto em casos de negligência comprovada.",
+                    "",
+                    "Declaro estar ciente de todas as informações referentes ao evento e ao transporte, bem como das normas e condutas esperadas dos participantes. Comprometo-me a fornecer informações médicas relevantes, caso necessário.",
+                    "",
+                    "A presente autorização é válida apenas para o dia 26/04/2025 – percurso ida e volta."
+                ];
+
+                doc.setFontSize(9);
+                let textY = lastY2 + 5;
+                const lineHeight = 5;
+
+                textoAutorizacao.forEach(line => {
+                    const splitText = doc.splitTextToSize(line, 180);
+                    splitText.forEach(textLine => {
+                        doc.text(textLine, 15, textY);
+                        textY += lineHeight;
+                    });
+                    if (line === "") textY += 2; // Espaço extra para linhas vazias
+                });
+
+                // Adicionar assinatura
+                if (dados.assinaturaResponsavel) {
+                    textY += 5;
+                    doc.text("Assinatura do Responsável:", 15, textY);
+                    textY += 5;
+
+                    // Adicionar a imagem da assinatura
+                    try {
+                        doc.addImage(dados.assinaturaResponsavel, 'PNG', 15, textY, 80, 30);
+                    } catch (error) {
+                        console.error("Erro ao adicionar assinatura:", error);
+                        doc.text("Erro ao carregar assinatura", 15, textY + 10);
+                    }
+
+                    textY += 35;
+                    doc.text(`Data: ${dados.dataPreenchimento}`, 15, textY);
+                }
+            }
+
+            // Adicionar rodapé
+            const pageCount = doc.internal.getNumberOfPages();
+            for (let i = 1; i <= pageCount; i++) {
+                doc.setPage(i);
+                doc.setFontSize(8);
+                doc.text(`Documento gerado em ${new Date().toLocaleDateString('pt-BR')} - ID: ${docId}`, 105, 290, { align: 'center' });
+            }
+
+            // Salvar o PDF
+            doc.save(`Autorização_${dados.nome.replace(/\s+/g, '_')}.pdf`);
+
+            return doc;
+        }
+
+        // Função auxiliar para formatar data
+        function formatarData(dataString) {
+            if (!dataString) return "";
+            const data = new Date(dataString);
+            return data.toLocaleDateString('pt-BR');
+        }
+
+
         // No evento de submit do formulário, adicione esta verificação:
         document.getElementById('acampForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    
-    // Verificar se os campos de responsável estão visíveis e obrigatórios
-    const responsavelDiv = document.getElementById('responsavelDiv');
-    if (responsavelDiv.style.display === 'block') {
-        const contato = document.getElementById('contato').value.trim();
-        const fonecontato = document.getElementById('fonecontato').value.trim();
-        const cpfResponsavel = document.getElementById('cpfResponsavel').value.trim();
-        
-        if (!contato || !fonecontato || !cpfResponsavel) {
-            alert('Por favor, preencha todos os dados do responsável (obrigatório para menores de 18 anos).');
-            return;
-        }
-        
-        // Verificar se a assinatura foi feita
-        if (signaturePad && signaturePad.isEmpty()) {
-            alert('Por favor, forneça a assinatura do responsável antes de prosseguir.');
-            return;
-        }
-    }
-    
-    // First check if elements exist before accessing their style property
-    const outraIgrejaDiv = document.getElementById('outraIgrejaDiv');
-    const quaisAlergiasDiv = document.getElementById('quaisAlergiasDiv');
-    
-    // Only check display style if elements exist
-    const outraIgrejaVisivel = outraIgrejaDiv ? outraIgrejaDiv.style.display === 'block' : false;
-    const quaisAlergiasVisivel = quaisAlergiasDiv ? quaisAlergiasDiv.style.display === 'block' : false;
-    
-    // Rest of your validation logic
-    if (outraIgrejaVisivel && !document.getElementById('outraIgreja').value.trim()) {
-        alert('Por favor, preencha o campo "Qual Igreja?".');
-        return;
-    }
-    
-    if (quaisAlergiasVisivel && !document.getElementById('quaisAlergias').value.trim()) {
-        alert('Por favor, preencha o campo "Quais alergias?".');
-        return;
-    }
-    
-    // Verificar novamente se o nome já existe antes de enviar
-    const nome = document.getElementById('nome').value.trim().toUpperCase();
-    verificarNomeExistente(nome).then(existe => {
-        if (existe) {
-            alert('Este nome já está cadastrado para o ACAMP. Não é possível prosseguir com o cadastro.');
-            return;
-        }
-        
-        // Capturar a assinatura se existir
-        let assinaturaData = '';
-        if (signaturePad && !signaturePad.isEmpty() && responsavelDiv.style.display === 'block') {
-            assinaturaData = signaturePad.toDataURL('image/png');
-        }
-        
-        // Se o nome não existir, continuar com o envio do formulário
-        const formData = {
-            nome: nome,
-            // cpf: document.getElementById('cpf').value,
-            dtnasc: document.getElementById('dtnasc').value,
-            idade: document.getElementById('idade').value,
-            // email: document.getElementById('email').value,
-            celular: document.getElementById('celular').value,
-            contato: document.getElementById('contato').value,
-            fonecontato: document.getElementById('fonecontato').value,
-            cpfResponsavel: document.getElementById('cpfResponsavel').value, // Adicionado campo de CPF do responsável
-            assinaturaResponsavel: assinaturaData, // Adicionando a assinatura do responsável
-            // cep: document.getElementById('cep').value,
-            // endereco: document.getElementById('endereco').value,
-            // numero: document.getElementById('numero').value,
-            // compl: document.getElementById('compl').value,
-            // bairro: document.getElementById('bairro').value,
-            // cidade: document.getElementById('cidade').value,
-            igreja: document.getElementById('igreja').value,
-            celula: document.getElementById('celula').value,
-            supervisor: document.getElementById('supervisor').value,
-            rede: document.getElementById('rede').value,
-            outraIgreja: document.getElementById('outraIgreja').value,
-            dataPreenchimento: document.getElementById('dataPreenchimento').value,
-            anoevento: '2025',
-            statusPagamento: 'pendente',
-            dtRegistro: new Date().toISOString()
-        };
-        
-        db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes").add(formData)
-            .then((docRef) => {
-                console.log("Documento escrito com ID: ", docRef.id);
-                
-                // Send email notification
-                const emailData = {
-                    to: "mozer.cielle@gmail.com",
-                    subject: "Nova Inscrição ACAMP Black Teen 2025",
-                    text: `Nova inscrição realizada:\nNome: ${formData.nome}\nTelefone: ${formData.celular}\nData: ${formData.dataPreenchimento}`
-                };
-                
-                // Using EmailJS service
-                emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", emailData, "YOUR_USER_ID")
-                    .then(response => console.log("Email enviado:", response))
-                    .catch(error => console.error("Erro ao enviar email:", error));
-                
-                window.location.href = 'obrigado.html';
-                this.reset();
-                
-                // Resetar campos adicionais
-                document.getElementById('outraIgrejaDiv').style.display = 'none';
-                document.getElementById('dataPreenchimento').value = new Date().toLocaleDateString('pt-BR');
-                document.getElementById('idade').value = '';
-                
-                // Limpar a assinatura
-                if (signaturePad) {
-                    signaturePad.clear();
+            e.preventDefault();
+
+            // Verificar se os campos de responsável estão visíveis e obrigatórios
+            const responsavelDiv = document.getElementById('responsavelDiv');
+            if (responsavelDiv.style.display === 'block') {
+                const contato = document.getElementById('contato').value.trim();
+                const fonecontato = document.getElementById('fonecontato').value.trim();
+                const cpfResponsavel = document.getElementById('cpfResponsavel').value.trim();
+
+                if (!contato || !fonecontato || !cpfResponsavel) {
+                    alert('Por favor, preencha todos os dados do responsável (obrigatório para menores de 18 anos).');
+                    return;
                 }
-            })
-            .catch((error) => {
-                console.error("Erro ao adicionar documento: ", error);
-                console.log(error); // Adicione esta linha para obter mais detalhes sobre o erro
-                alert('Erro ao realizar inscrição. Por favor, tente novamente.');
+
+                // Verificar se a assinatura foi feita
+                if (signaturePad && signaturePad.isEmpty()) {
+                    alert('Por favor, forneça a assinatura do responsável antes de prosseguir.');
+                    return;
+                }
+            }
+
+            // First check if elements exist before accessing their style property
+            const outraIgrejaDiv = document.getElementById('outraIgrejaDiv');
+            const quaisAlergiasDiv = document.getElementById('quaisAlergiasDiv');
+
+            // Only check display style if elements exist
+            const outraIgrejaVisivel = outraIgrejaDiv ? outraIgrejaDiv.style.display === 'block' : false;
+            const quaisAlergiasVisivel = quaisAlergiasDiv ? quaisAlergiasDiv.style.display === 'block' : false;
+
+            // Rest of your validation logic
+            if (outraIgrejaVisivel && !document.getElementById('outraIgreja').value.trim()) {
+                alert('Por favor, preencha o campo "Qual Igreja?".');
+                return;
+            }
+
+            if (quaisAlergiasVisivel && !document.getElementById('quaisAlergias').value.trim()) {
+                alert('Por favor, preencha o campo "Quais alergias?".');
+                return;
+            }
+
+            // Verificar novamente se o nome já existe antes de enviar
+            const nome = document.getElementById('nome').value.trim().toUpperCase();
+            verificarNomeExistente(nome).then(existe => {
+                if (existe) {
+                    alert('Este nome já está cadastrado para o ACAMP. Não é possível prosseguir com o cadastro.');
+                    return;
+                }
+
+                // Capturar a assinatura se existir
+                let assinaturaData = '';
+                if (signaturePad && !signaturePad.isEmpty() && responsavelDiv.style.display === 'block') {
+                    assinaturaData = signaturePad.toDataURL('image/png');
+                }
+
+                // Se o nome não existir, continuar com o envio do formulário
+                const formData = {
+                    nome: nome,
+                    // cpf: document.getElementById('cpf').value,
+                    dtnasc: document.getElementById('dtnasc').value,
+                    idade: document.getElementById('idade').value,
+                    // email: document.getElementById('email').value,
+                    celular: document.getElementById('celular').value,
+                    contato: document.getElementById('contato').value,
+                    fonecontato: document.getElementById('fonecontato').value,
+                    cpfResponsavel: document.getElementById('cpfResponsavel').value, // Adicionado campo de CPF do responsável
+                    assinaturaResponsavel: assinaturaData, // Adicionando a assinatura do responsável
+                    // cep: document.getElementById('cep').value,
+                    // endereco: document.getElementById('endereco').value,
+                    // numero: document.getElementById('numero').value,
+                    // compl: document.getElementById('compl').value,
+                    // bairro: document.getElementById('bairro').value,
+                    // cidade: document.getElementById('cidade').value,
+                    igreja: document.getElementById('igreja').value,
+                    celula: document.getElementById('celula').value,
+                    supervisor: document.getElementById('supervisor').value,
+                    rede: document.getElementById('rede').value,
+                    outraIgreja: document.getElementById('outraIgreja').value,
+                    dataPreenchimento: document.getElementById('dataPreenchimento').value,
+                    anoevento: '2025',
+                    statusPagamento: 'pendente',
+                    dtRegistro: new Date().toISOString()
+                };
+
+                db.collection("Eventos").doc("EssenciaMR2025").collection("inscricoes").add(formData)
+                    .then((docRef) => {
+                        console.log("Documento escrito com ID: ", docRef.id);
+
+                        // Gerar PDF com os dados e o ID do documento
+                        gerarPDF(formData, docRef.id);
+
+                        // Send email notification
+                        const emailData = {
+                            to: "mozer.cielle@gmail.com",
+                            subject: "Nova Inscrição Essência 2025",
+                            text: `Nova inscrição realizada:\nNome: ${formData.nome}\nTelefone: ${formData.celular}\nData: ${formData.dataPreenchimento}`
+                        };
+
+                        // Using EmailJS service
+                        emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", emailData, "YOUR_USER_ID")
+                            .then(response => console.log("Email enviado:", response))
+                            .catch(error => console.error("Erro ao enviar email:", error));
+
+                        // Redirecionar após um pequeno atraso para permitir o download do PDF
+                        setTimeout(() => {
+                            window.location.href = 'obrigado.html';
+                        }, 1000);
+
+                        this.reset();
+                        // Resetar campos adicionais
+                        document.getElementById('outraIgrejaDiv').style.display = 'none';
+                        document.getElementById('dataPreenchimento').value = new Date().toLocaleDateString('pt-BR');
+                        document.getElementById('idade').value = '';
+
+                        // Limpar a assinatura
+                        if (signaturePad) {
+                            signaturePad.clear();
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Erro ao adicionar documento: ", error);
+                        console.log(error); // Adicione esta linha para obter mais detalhes sobre o erro
+                        alert('Erro ao realizar inscrição. Por favor, tente novamente.');
+                    });
+
             });
-    });
-});
+        });
 
 
         window.addEventListener('scroll', function () {
@@ -831,34 +981,34 @@
         });
 
         // Inicializar o pad de assinatura
-let signaturePad;
+        let signaturePad;
 
-document.addEventListener('DOMContentLoaded', function() {
-    const canvas = document.getElementById('signature-pad');
-    if (canvas) {
-        signaturePad = new SignaturePad(canvas, {
-            backgroundColor: 'rgb(255, 255, 255)',
-            penColor: 'rgb(0, 0, 0)'
+        document.addEventListener('DOMContentLoaded', function () {
+            const canvas = document.getElementById('signature-pad');
+            if (canvas) {
+                signaturePad = new SignaturePad(canvas, {
+                    backgroundColor: 'rgb(255, 255, 255)',
+                    penColor: 'rgb(0, 0, 0)'
+                });
+
+                // Ajustar o tamanho do canvas quando a janela for redimensionada
+                function resizeCanvas() {
+                    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+                    canvas.width = canvas.offsetWidth * ratio;
+                    canvas.height = canvas.offsetHeight * ratio;
+                    canvas.getContext("2d").scale(ratio, ratio);
+                    signaturePad.clear(); // Limpa a assinatura
+                }
+
+                window.addEventListener("resize", resizeCanvas);
+                resizeCanvas();
+
+                // Botão para limpar a assinatura
+                document.getElementById('clear-signature').addEventListener('click', function () {
+                    signaturePad.clear();
+                });
+            }
         });
-
-        // Ajustar o tamanho do canvas quando a janela for redimensionada
-        function resizeCanvas() {
-            const ratio = Math.max(window.devicePixelRatio || 1, 1);
-            canvas.width = canvas.offsetWidth * ratio;
-            canvas.height = canvas.offsetHeight * ratio;
-            canvas.getContext("2d").scale(ratio, ratio);
-            signaturePad.clear(); // Limpa a assinatura
-        }
-
-        window.addEventListener("resize", resizeCanvas);
-        resizeCanvas();
-
-        // Botão para limpar a assinatura
-        document.getElementById('clear-signature').addEventListener('click', function() {
-            signaturePad.clear();
-        });
-    }
-});
 
 
     </script>
