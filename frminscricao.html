@@ -264,53 +264,7 @@
                     <input type="text" class="form-control" id="celular" placeholder="(99) 99999-9999" required>
                 </div>
             </div>
-            <div id="responsavelDiv" style="display: none;">
-                <div class="form-group">
-                    <label for="contato">Nome do Responsável (Obrigatório para menor de 18 anos)</label>
-                    <input type="text" class="form-control" id="contato">
-                </div>
-                <div class="form-group" id="cpfResponsavelDiv">
-                    <label for="cpfResponsavel">CPF do Responsável (Obrigatório para menor de 18 anos)</label>
-                    <input type="text" class="form-control" id="cpfResponsavel" placeholder="000.000.000-00">
-                </div>
-                <div class="form-group">
-                    <label for="fonecontato">Celular do Responsável (Obrigatório para menor de 18 anos)</label>
-                    <input type="tel" class="form-control" id="fonecontato" placeholder="(99) 99999-9999">
-                </div>
-                <div class="form-group" id="autorizacaoDiv">
-                    <div class="info-box"
-                        style="background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 5px; padding: 15px; margin-top: 10px;">
-                        <p class="mb-1"><strong>TERMO DE AUTORIZAÇÃO</strong></p>
-                        <p class="mb-1">Eu <span id="nomeResponsavelSpan" style="font-weight: bold;"></span> autorizo a
-                            participão de <span id="nomeParticipanteSpan" style="font-weight: bold;"></span> no evento
-                            "Essência", organizado pela IEB Missão Resgate na cidade do Conde-PB, a ser realizado no dia 26/04/2025.</p>
-                        <p class="mb-1">Autorizo também que o(a) referido(a) adolescente utilize o transporte oferecido
-                            pela IEB Intermares, onde será acompanhado pelo líderes de jovens Alysson Samuel Batista de Amorim 
-                            (CPF: 093.463.304-57) e Raissa Bruna de A. Rodrigues Amorim (CPF: 070.085.934-90), maiores, capazes, casados 
-                            e empresários.</p>
-                            Isentando a organização e os responsáveis pelo evento de quaisquer
-                            responsabilidades em caso de incidentes durante o trajeto e a permanência no evento, exceto
-                            em casos de negligência comprovada.</p>
-                        <p class="mb-1">Declaro estar ciente de todas as informações referentes ao evento e ao
-                            transporte, bem como das normas e condutas esperadas dos participantes. Comprometo-me a
-                            fornecer informações médicas relevantes, caso necessário.</p>
-                            <p class="mb-1">A presente autorização é válida apenas para o dia 26/04/2025 – percurso ida e volta.</p>
-                    </div>
-                    <div class="form-group mt-3">
-                        <label for="assinatura">Assinatura do Responsável</label>
-                        <div class="signature-container">
-                            <canvas id="signature-pad" class="signature-pad" width="400" height="200"></canvas>
-                        </div>
-                        <div class="signature-buttons mt-2">
-                            <button type="button" class="btn btn-secondary btn-sm" id="clear-signature">Limpar Assinatura</button>
-                        </div>
-                        <input type="hidden" id="assinaturaData" name="assinaturaData">
-                        <small class="form-text text-muted">Por favor, assine usando o mouse ou touch na tela.</small>
-                    </div>
-                    
-                </div>
-
-            </div>
+            
             <!-- <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="cep">CEP</label>
@@ -374,6 +328,55 @@
                     <label for="outraIgreja">Qual Igreja?</label>
                     <input type="text" class="form-control" id="outraIgreja">
                 </div>
+            </div>
+
+            <div id="responsavelDiv" style="display: none;">
+                <div class="form-group">
+                    <label for="contato">Nome do Responsável (Obrigatório para menor de 18 anos)</label>
+                    <input type="text" class="form-control" id="contato">
+                </div>
+                <div class="form-group" id="cpfResponsavelDiv">
+                    <label for="cpfResponsavel">CPF do Responsável (Obrigatório para menor de 18 anos)</label>
+                    <input type="text" class="form-control" id="cpfResponsavel" placeholder="000.000.000-00">
+                </div>
+                <div class="form-group">
+                    <label for="fonecontato">Celular do Responsável (Obrigatório para menor de 18 anos)</label>
+                    <input type="tel" class="form-control" id="fonecontato" placeholder="(99) 99999-9999">
+                </div>
+                <div class="form-group" id="autorizacaoDiv">
+                    <div class="info-box"
+                        style="background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 5px; padding: 15px; margin-top: 10px;">
+                        <p class="mb-1"><strong>TERMO DE AUTORIZAÇÃO</strong></p>
+                        <p class="mb-1">Eu <span id="nomeResponsavelSpan" style="font-weight: bold;"></span> autorizo a
+                            participão de <span id="nomeParticipanteSpan" style="font-weight: bold;"></span> no evento
+                            "Essência", organizado pela IEB Missão Resgate na cidade do Conde-PB, a ser realizado no dia 26/04/2025.</p>
+                        <p class="mb-1">Autorizo também que o(a) referido(a) adolescente utilize o transporte oferecido
+                            pela IEB Intermares, onde será acompanhado pelo líderes de jovens Alysson Samuel Batista de Amorim 
+                            (CPF: 093.463.304-57) e Raissa Bruna de A. Rodrigues Amorim (CPF: 070.085.934-90), maiores, capazes, casados 
+                            e empresários.</p>
+                            Isentando a organização e os responsáveis pelo evento de quaisquer
+                            responsabilidades em caso de incidentes durante o trajeto e a permanência no evento, exceto
+                            em casos de negligência comprovada.</p>
+                        <p class="mb-1">Declaro estar ciente de todas as informações referentes ao evento e ao
+                            transporte, bem como das normas e condutas esperadas dos participantes. Comprometo-me a
+                            fornecer informações médicas relevantes, caso necessário.</p>
+                            <p class="mb-1">A presente autorização é válida apenas para o dia 26/04/2025 – percurso ida e volta.</p>
+                    </div>
+                    
+                </div>
+
+                <div class="form-group mt-3">
+                    <label for="assinatura">Assinatura do Responsável</label>
+                    <div class="signature-container">
+                        <canvas id="signature-pad" class="signature-pad" width="400" height="200"></canvas>
+                    </div>
+                    <div class="signature-buttons mt-2">
+                        <button type="button" class="btn btn-secondary btn-sm" id="clear-signature">Limpar Assinatura</button>
+                    </div>
+                    <input type="hidden" id="assinaturaData" name="assinaturaData">
+                    <small class="form-text text-muted">Por favor, assine usando o mouse ou touch na tela.</small>
+                </div>
+                
             </div>
 
             <div class="form-group">
