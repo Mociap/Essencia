@@ -77,12 +77,50 @@
             font-size: 24px;
         }
 
-        /* Adicione isso à seção de estilos */
-        /*
-        .dataTables_scrollBody {
-            border-bottom: 1px solid #dee2e6;
-        }
-        */
+/* Fixar o cabeçalho da tabela */
+.dataTables_wrapper .dataTables_scroll div.dataTables_scrollHead {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #fff;
+}
+
+/* Ajustar a área de rolagem para mostrar apenas o corpo da tabela */
+.dataTables_wrapper .dataTables_scroll {
+    max-height: 400px; /* Ajuste conforme necessário */
+}
+
+.dataTables_wrapper .dataTables_scrollBody {
+    max-height: 350px; /* Altura máxima para o corpo da tabela */
+    overflow-y: auto;
+}
+
+/* Garantir que os controles de pesquisa fiquem fora da área de rolagem */
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+    position: relative;
+    z-index: 20;
+    background-color: #fff;
+    padding: 5px 0;
+}
+
+/* Ajustar o espaçamento entre os controles e a tabela */
+.dataTables_wrapper .dataTables_filter {
+    margin-bottom: 10px;
+}
+
+/* Garantir que o título da tabela fique fixo */
+.container h3 {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 30;
+    padding: 10px 0;
+    margin-bottom: 15px;
+}
+        
 
         .table-responsive {
             border-radius: 10px;
@@ -103,6 +141,18 @@
             width: 100% !important;
             margin-bottom: 0;
         }
+        
+        .table-container {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.table-responsive {
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Importante para manter os cantos arredondados */
+}
+
     </style>
 </head>
 <body>
@@ -166,6 +216,7 @@
             </form>
         </div>
 
+        <div class="table-container">
         <div class="table-responsive">
             <table class="table table-striped" id="participantesTable">
                 <thead class="thead-dark">
@@ -186,6 +237,7 @@
                 </tbody>
             </table>
         </div>
+    </div>
 
         <!-- Adicionar este elemento após a tabela -->
         <div class="row mt-3 mb-4">
@@ -287,24 +339,26 @@
 
             // Inicializar DataTable
             dataTable = $('#participantesTable').DataTable({
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/pt-BR.json'
-                },
-                responsive: true,
-                dom: 'Bfrti', // Removido 'p' (paginação)
-                paging: false, // Desativa a paginação
-                scrollCollapse: true, // Mantém o colapso da altura
-                buttons: [
-                    {
-                        extend: 'excel',
-                        text: 'Exportar Excel',
-                        className: 'btn btn-export d-none',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
-                        }
-                    },
-                ]
-            });
+    language: {
+        url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/pt-BR.json'
+    },
+    responsive: true,
+    dom: 'Bfrti', // Removido 'p' (paginação)
+    paging: false, // Desativa a paginação
+    scrollY: '350px', // Altura fixa para a área de rolagem
+    scrollCollapse: true, // Mantém o colapso da altura
+    fixedHeader: true, // Mantém o cabeçalho fixo durante a rolagem
+    buttons: [
+        {
+            extend: 'excel',
+            text: 'Exportar Excel',
+            className: 'btn btn-export d-none',
+            exportOptions: {
+                columns: [0, 1, 2, 3, 4, 5, 6, 7]
+            }
+        },
+    ]
+});
 
             // Associar botões personalizados aos botões do DataTable
             $('.btn-export').eq(0).on('click', function () {
